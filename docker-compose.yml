@@ -1,0 +1,121 @@
+services:
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak
+    command: start-dev
+    ports:
+      - "8080:8080"
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    depends_on:
+      - postgres
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - base-app
+
+  postgres:
+    container_name: keycloak-db
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+  users-db:
+    image: postgres:16
+    container_name: users-db
+    restart: always
+    environment:
+      POSTGRES_DB: userservice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - userservice-data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+  patients-db:
+    image: postgres:16
+    container_name: patients-db
+    restart: always
+    environment:
+      POSTGRES_DB: patientservice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - patientservice-data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+  doctors-db:
+    image: postgres:16
+    container_name: doctors-db
+    restart: always
+    environment:
+      POSTGRES_DB: doctorservice
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - doctorservice-data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+  medical-history-db:
+    image: postgres:16
+    container_name: medical-history-db
+    restart: always
+    environment:
+      POSTGRES_DB: medical-history-service
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5435:5432"
+    volumes:
+      - medical-history-data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+  consultations-db:
+    image: postgres:16
+    container_name: consultations-db
+    restart: always
+    environment:
+      POSTGRES_DB: consultation-service
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5436:5432"
+    volumes:
+      - consultation-service-data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
+
+networks:
+  base-app:
+
+volumes:
+  keycloak_data:
+  postgres_data:
+  userservice-data:
+  patientservice-data:
+  doctorservice-data:
+  medical-history-data:
+  consultation-service-data:

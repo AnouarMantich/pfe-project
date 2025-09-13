@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: doctor-service
+  config:
+    import: optional:configserver:http://localhost:8888
+
+application:
+  user-service:
+    url: http://localhost:8081/api/v1/users

@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: consultation-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  datasource:
+    url: jdbc:postgresql://localhost:5436/consultation-service
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  #    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+      platform: postgres
+      continue-on-error: true
+
+server:
+  port: 8086
+
+# Management endpoints will be added when actuator dependencies are properly configured
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: health,info,metrics,prometheus
+#   endpoint:
+#     health:
+#       show-details: always
+#   metrics:
+#     export:
+#       prometheus:
+#         enabled: true
+
+logging:
+  level:
+    org.app.consultationservice: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+#application:
+#  user-service:
+#    url: http://localhost:8081/api/v1/users

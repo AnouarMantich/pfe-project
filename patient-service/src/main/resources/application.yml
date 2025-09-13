@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: patient-service
+  config:
+    import: optional:configserver:http://localhost:8888
+
+#  datasource:
+#    url: jdbc:postgresql://localhost:5433/patientservice
+#    username: user
+#    password: password
+#    driver-class-name: org.postgresql.Driver
+#
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#  #    defer-datasource-initialization: true
+#
+#  sql:
+#    init:
+#      mode: always
+#      platform: postgres
+#      continue-on-error: true
+#server:
+#  port: 8082
+#application:
+#  user:
+#    url: http://localhost:8081/api/v1/users
+

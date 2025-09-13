@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: medical-history
+  config:
+    import: optional:configserver:http://localhost:8888
+application:
+  user-service:
+    url: http://localhost:8081/api/v1/users
+consultation:
+  service:
+    url: http://localhost:8086 # URL du microservice Consultation
